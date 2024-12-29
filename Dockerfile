@@ -1,5 +1,5 @@
-# Use Maven 3.8.6 with OpenJDK 11 to build the app
-FROM maven:3.8.6-openjdk-11 AS build
+# Use Maven 3.9.0 with OpenJDK 17 to build the app
+FROM maven:3.9.0-openjdk-17 AS build
 
 # Set the working directory
 WORKDIR /app
