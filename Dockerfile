@@ -1,18 +1,27 @@
-FROM maven:3.8.6-jdk-17 AS build
+# Use Maven 3.8.6 with OpenJDK 17 to build the app
+FROM maven:3.8.6-openjdk-17 AS build
 
+# Set the working directory
 WORKDIR /app
 
-COPY pom.xml .
-COPY src/ ./src/
+# Copy the pom.xml and the source code into the container
+COPY pom.xml /app/
+COPY src /app/src/
 
-RUN mvn clean package
+# Build the application
+RUN mvn clean package -DskipTests
 
-FROM openjdk:17-jdk-slim
+# Use OpenJDK 17 runtime image for the final container
+FROM openjdk:17-jdk-alpine
 
+# Set the working directory in the container
 WORKDIR /app
 
-COPY --from=build /app/target/*.jar demo.jar
+# Copy the generated .jar file from the build stage
+COPY --from=build /app/target/demo.jar /demo.jar
 
+# Expose the port for the Spring Boot app (default 8080)
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "demo.jar"]
+# Command to run the Spring Boot app
+CMD ["java", "-jar", "demo.jar"]
