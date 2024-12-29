@@ -1,5 +1,8 @@
-# Use Maven 3.9.0 with OpenJDK 17 to build the app
-FROM maven:3.9.0-openjdk-17 AS build
+# Use Maven to build the Spring Boot app (without OpenJDK 17 preinstalled)
+FROM maven:3.8.6 AS build
+
+# Install OpenJDK 17 manually
+RUN apt-get update && apt-get install -y openjdk-17-jdk
 
 # Set the working directory
 WORKDIR /app
