@@ -12,13 +12,13 @@ COPY src /app/src/
 RUN mvn clean package -DskipTests
 
 # Use OpenJDK 17 runtime image for the final container
-FROM openjdk:17-jdk-alpine
+FROM openjdk:17
 
 # Set the working directory in the container
 WORKDIR /app
 
 # Copy the generated .jar file from the build stage
-COPY --from=build /app/target/demo.jar /demo.jar
+COPY --from=build /app/target/demo.jar /app/demo.jar
 
 # Expose the port for the Spring Boot app (default 8080)
 EXPOSE 8080
