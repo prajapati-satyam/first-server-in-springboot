@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -17,4 +18,15 @@ public class UserController {
     public String getUser() {
         return "{\"id\": 1, \"name\": \"John Doe\", \"email\": \"john.doe@example.com\"}";
     }
+
+    @GetMapping("/sum-range")
+    public long sumRange() {
+        long total = 0;
+        // Loop from 1 to 1,000,000,000
+        for (long i = 1; i <= 1000000000L; i++) {
+            total += i;
+        }
+        return total;
+    }
 }
+
