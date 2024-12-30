@@ -1,20 +1,18 @@
-# Use the official OpenJDK image as a base
+# Use OpenJDK 17 as the base image
 FROM openjdk:17-jdk-slim
 
-# Set the working directory in the container
+# Set the working directory
 WORKDIR /app
 
-# Copy the Maven build file
+# Copy the pom.xml and source code
 COPY pom.xml .
-
-# Copy the source code
 COPY src ./src
+
+# Make the Maven Wrapper executable
+RUN chmod +x mvnw
 
 # Package the application
 RUN ./mvnw clean package -DskipTests
 
 # Specify the command to run the application
 CMD ["java", "-jar", "target/demo-0.0.1-SNAPSHOT.jar"]
-
-# Expose the port the app runs on
-EXPOSE 8080
