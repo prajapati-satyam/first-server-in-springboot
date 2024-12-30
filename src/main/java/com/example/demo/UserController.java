@@ -28,5 +28,15 @@ public class UserController {
         }
         return total;
     }
+
+    @GetMapping("/sum-range-ten-crore")
+public long sumRangeTenCrore() {
+    long total = 0;
+    // Loop from 1 to 10 crore (100,000,000)
+    for (long i = 1; i <= 100000000L; i++) {
+        total += i;
+    }
+    return total;
+}
 }
 
